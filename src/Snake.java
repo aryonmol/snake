@@ -1,5 +1,6 @@
-public class Snake { //So this is gonna be where we create the game
+public class Snake {
     public static void main(String[] args) {
+        new GameFrame();
 
     }
 }
