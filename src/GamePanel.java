@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements ActionListener {
         if (running) {
 
             try {
-                String path="/Users/amolavi23/IdeaProjects/snake/src/Apples.jpg";
+                String path="/Users/amolavi23/IdeaProjects/Snake Game/snake/images/Apples.jpg";
                 BufferedImage imageOrignal=ImageIO.read(new File(path));
                 Image image=imageOrignal.getScaledInstance(UNIT_SIZE,UNIT_SIZE,Image.SCALE_DEFAULT);
                 g.drawImage(image,applesX,applesY,null);
@@ -72,7 +72,7 @@ public class GamePanel extends JPanel implements ActionListener {
             for (int i = 0; i < bodyParts; i++) {
                 if (i == 0) {
                     try {
-                        String path="../images/SnakeHead"+direction+".jpg";
+                        String path="/Users/amolavi23/IdeaProjects/Snake Game/snake/images/SnakeHead"+direction+".jpg";
                         BufferedImage imageOrignal=ImageIO.read(new File(path));
                         Image image=imageOrignal.getScaledInstance(UNIT_SIZE,UNIT_SIZE,Image.SCALE_DEFAULT);
                         g.drawImage(image,x[i],y[i],null);
@@ -155,7 +155,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void gameOver(Graphics g) {
         //Score
         try {
-            String path="/Users/amolavi23/IdeaProjects/snake/src/GameOver.jpeg";
+            String path="/Users/amolavi23/IdeaProjects/Snake Game/snake/images/GameOver.jpeg";
             BufferedImage imageOrignal=ImageIO.read(new File(path));
             Image image=imageOrignal.getScaledInstance(SCREEN_WIDTH,SCREEN_HEIGHT,Image.SCALE_DEFAULT);
             g.drawImage(image,0,0,null);
