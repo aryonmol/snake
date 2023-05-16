@@ -1,16 +1,10 @@
-import javafx.scene.image.ImageView;
-import sun.java2d.pipe.DrawImage;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import java.util.Random;
 
@@ -60,7 +54,8 @@ public class GamePanel extends JPanel implements ActionListener {
         if (running) {
 
             try {
-                String path="/Users/amolavi23/IdeaProjects/snake/src/Apples.jpg";
+
+                String path= "snake/images/Apples.jpg";
                 BufferedImage imageOrignal=ImageIO.read(new File(path));
                 Image image=imageOrignal.getScaledInstance(UNIT_SIZE,UNIT_SIZE,Image.SCALE_DEFAULT);
                 g.drawImage(image,applesX,applesY,null);
@@ -72,7 +67,7 @@ public class GamePanel extends JPanel implements ActionListener {
             for (int i = 0; i < bodyParts; i++) {
                 if (i == 0) {
                     try {
-                        String path="../images/SnakeHead"+direction+".jpg";
+                        String path="snake/images/SnakeHead"+direction+".jpg";
                         BufferedImage imageOrignal=ImageIO.read(new File(path));
                         Image image=imageOrignal.getScaledInstance(UNIT_SIZE,UNIT_SIZE,Image.SCALE_DEFAULT);
                         g.drawImage(image,x[i],y[i],null);
@@ -155,7 +150,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void gameOver(Graphics g) {
         //Score
         try {
-            String path="/Users/amolavi23/IdeaProjects/snake/src/GameOver.jpeg";
+            String path= "snake/images/GameOver.jpeg";
             BufferedImage imageOrignal=ImageIO.read(new File(path));
             Image image=imageOrignal.getScaledInstance(SCREEN_WIDTH,SCREEN_HEIGHT,Image.SCALE_DEFAULT);
             g.drawImage(image,0,0,null);
