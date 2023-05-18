@@ -1,8 +1,11 @@
 import javafx.scene.layout.Border;
 
 import java.awt.*;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 import static javafx.application.Platform.exit;
 
@@ -33,7 +36,15 @@ public class HomePanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        new GameFrame();
+        try {
+            new GameFrame();
+        } catch (UnsupportedAudioFileException ex) {
+            throw new RuntimeException(ex);
+        } catch (LineUnavailableException ex) {
+            throw new RuntimeException(ex);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override

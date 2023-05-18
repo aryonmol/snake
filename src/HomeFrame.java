@@ -5,8 +5,8 @@ import java.awt.event.*;
 public class HomeFrame extends JFrame{
     JPanel snake;
     HomeFrame() {
-        JLabel SNAKE = new JLabel("Snake");
-        SNAKE.setFont(new Font("Verdana", 1, 100));
+        JLabel SNAKE = new JLabel("SNAKE");
+        SNAKE.setFont(new Font("Times New Roman", 1, 100));
         SNAKE.setForeground(Color.GREEN);
         snake = new JPanel();
         snake.setPreferredSize(new Dimension(0,322));

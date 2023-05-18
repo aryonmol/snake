@@ -1,6 +1,9 @@
+import com.sun.corba.se.impl.activation.ServerMain;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,6 +14,10 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
     static final int SCREEN_WIDTH = 600;
+    Boolean stopClip=false;
+    File f = new File("snake/Sounds/BackgroundMusic.wav");
+    AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+    Clip clip = AudioSystem.getClip();
     static final int SCREEN_HEIGHT = 600;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
@@ -22,6 +29,8 @@ public class GamePanel extends JPanel implements ActionListener {
     int bodyParts = 6;
     int applesEaten;
     int applesX;
+
+
     int applesY;
     char direction = 'R';
     boolean running = false;
@@ -29,7 +38,7 @@ public class GamePanel extends JPanel implements ActionListener {
     Timer timer;
     Random random;
 
-    GamePanel() {
+    GamePanel() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.WHITE);
@@ -38,13 +47,18 @@ public class GamePanel extends JPanel implements ActionListener {
         startGame();
 
 
+
     }
 
-    public void startGame() {
+    public void startGame() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         newApple();
         running = true;
         timer = new Timer(DELAY, this);
         timer.start();
+        clip.open(audioIn);
+        clip.start();
+        clip.loop(4);
+
     }
 
     public void paintComponent(Graphics g) {
@@ -131,13 +145,27 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
-    public void checkApple() {
+    public void checkApple() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if ((x[0] == applesX) && (y[0] == applesY)) {
+
             bodyParts += 3;
             applesEaten++;
             newApple();
+            playSound("AppleSound.wav");
+
         }
     }
+    public void playSound(String fileName) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        File f = new File("snake/Sounds/"+fileName);
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioIn);
+        clip.start();
+    }
+
+
+
+
 
     public void checkCollisions() {
         for (int i = bodyParts; i > 0; i--) { //head collides with body
@@ -159,12 +187,15 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         if (!running) {
             timer.stop();
+
         }
     }
 
     public void gameOver(Graphics g) {
         //Score
         try {
+            clip.stop();
+            playSound("GameOver.wav");
             String path = "snake/images/GameOver.jpeg";
             BufferedImage imageOrignal = ImageIO.read(new File(path));
             Image image = imageOrignal.getScaledInstance(SCREEN_WIDTH, SCREEN_HEIGHT, Image.SCALE_DEFAULT);
@@ -175,9 +206,10 @@ public class GamePanel extends JPanel implements ActionListener {
             g.drawString("Score: " + applesEaten, 225, 500);
             g.drawString("Score: " + applesEaten, 225, 500);
 
-        } catch (IOException e) {
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public char getTailDirection() {
@@ -194,7 +226,15 @@ public class GamePanel extends JPanel implements ActionListener {
         public void actionPerformed (ActionEvent e){
             if (running) {
                 move();
-                checkApple();
+                try {
+                    checkApple();
+                } catch (UnsupportedAudioFileException ex) {
+                    throw new RuntimeException(ex);
+                } catch (LineUnavailableException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 checkCollisions();
             }
             repaint();
