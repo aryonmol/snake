@@ -1,4 +1,5 @@
 import com.sun.corba.se.impl.activation.ServerMain;
+import sun.print.PathGraphics;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +15,6 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
     static final int SCREEN_WIDTH = 600;
-    Boolean stopClip=false;
     File f = new File("snake/Sounds/BackgroundMusic.wav");
     AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
     Clip clip = AudioSystem.getClip();
@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
     static final int DELAY = 75;
-    int counter = 0;
+
 
     final int x[] = new int[GAME_UNITS];
     final int y[] = new int[GAME_UNITS];
@@ -59,6 +59,8 @@ public class GamePanel extends JPanel implements ActionListener {
         clip.start();
         clip.loop(4);
 
+
+
     }
 
     public void paintComponent(Graphics g) {
@@ -68,7 +70,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void draw(Graphics g) {
         if (running) {
-
+            g.setColor(Color.RED);
+            Font f = new Font("Serif", Font.BOLD, 25);
+            g.setFont(f);
+            g.drawString(""+applesEaten, SCREEN_WIDTH-25,  25);
             try {
 
                 String path = "snake/images/Apples.jpg";
@@ -133,7 +138,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
                 break;
             case 'D':
-                y[0] = y[0] + UNIT_SIZE;
+                y[0] = y[0]  + UNIT_SIZE;
                 break;
             case 'L':
                 x[0] = x[0] - UNIT_SIZE;
@@ -205,7 +210,9 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setFont(f);
             g.drawString("Score: " + applesEaten, 225, 500);
             g.drawString("Score: " + applesEaten, 225, 500);
-
+            JLabel SNAKE = new JLabel("SNAKE");
+            SNAKE.setFont(new Font("Times New Roman", 1, 100));
+            SNAKE.setForeground(Color.GREEN);
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             throw new RuntimeException(e);
         }
@@ -254,19 +261,17 @@ public class GamePanel extends JPanel implements ActionListener {
                     case KeyEvent.VK_RIGHT:
                         if (direction != 'L') {
                             direction = 'R';
-                            counter++;
+
                         }
                         break;
                     case KeyEvent.VK_UP:
                         if (direction != 'D') {
                             direction = 'U';
-                            counter++;
                         }
                         break;
                     case KeyEvent.VK_DOWN:
                         if (direction != 'U') {
                             direction = 'D';
-                            counter++;
                         }
                         break;
                 }

@@ -11,7 +11,11 @@ public class HomeFrame extends JFrame{
         snake = new JPanel();
         snake.setPreferredSize(new Dimension(0,322));
         snake.setBackground(Color.RED);
-        snake.setFocusable(true);
+        snake.setFocusable(false);
+        snake.add(SNAKE, BorderLayout.SOUTH);snake = new JPanel();
+        snake.setPreferredSize(new Dimension(0,322));
+        snake.setBackground(Color.RED);
+        snake.setFocusable(false);
         snake.add(SNAKE, BorderLayout.SOUTH);
 
         JPanel background = new JPanel();
