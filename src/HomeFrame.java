@@ -8,6 +8,7 @@ public class HomeFrame extends JFrame implements MouseListener{
     protected JButton play = new JButton("PLAY");
 
     HomeFrame() {
+<<<<<<< HEAD
         home = new JPanel();
         home.setPreferredSize(new Dimension(600,250));
         home.setBackground(Color.RED);
@@ -22,11 +23,19 @@ public class HomeFrame extends JFrame implements MouseListener{
 
         JLabel SNAKE = new JLabel("Snake");
         SNAKE.setFont(new Font("Verdana", 1, 100));
+=======
+        JLabel SNAKE = new JLabel("SNAKE");
+        SNAKE.setFont(new Font("Times New Roman", 1, 100));
+>>>>>>> 52f68e4ef024ecfa7f98fcca303d82759bcde055
         SNAKE.setForeground(Color.GREEN);
         snake = new JPanel();
         snake.setPreferredSize(new Dimension(600,322));
         snake.setBackground(Color.RED);
-        snake.setFocusable(true);
+        snake.setFocusable(false);
+        snake.add(SNAKE, BorderLayout.SOUTH);snake = new JPanel();
+        snake.setPreferredSize(new Dimension(0,322));
+        snake.setBackground(Color.RED);
+        snake.setFocusable(false);
         snake.add(SNAKE, BorderLayout.SOUTH);
 
         JPanel background = new JPanel();
