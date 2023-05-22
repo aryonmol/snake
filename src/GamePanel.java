@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Random;
 
 
-public class GamePanel extends JPanel implements ActionListener {
+public class GamePanel extends JPanel implements ActionListener, MouseListener{
     static final int SCREEN_WIDTH = 600;
     static final int SCREEN_HEIGHT = 600;
     static final int UNIT_SIZE = 25;
@@ -153,12 +153,22 @@ public class GamePanel extends JPanel implements ActionListener {
             String path= "snake/images/GameOver.jpeg";
             BufferedImage imageOrignal=ImageIO.read(new File(path));
             Image image=imageOrignal.getScaledInstance(SCREEN_WIDTH,SCREEN_HEIGHT,Image.SCALE_DEFAULT);
+            JButton playAgain = new JButton("Play Again");
+            playAgain.setBackground(Color.RED);
+            playAgain.setOpaque(true);
+            playAgain.addMouseListener(this);
             g.drawImage(image,0,0,null);
             g.setColor(Color.RED);
+
+            playAgain.setVisible(true);
+            playAgain.setPreferredSize(new Dimension(250, 100));
+
             Font f=new Font("Serif", Font.BOLD,50);
             g.setFont(f);
             g.drawString("Score: "+applesEaten, 225,500);
             g.drawString("Score: "+applesEaten, 225,500);
+            this.add(playAgain, BorderLayout.NORTH);
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -172,6 +182,31 @@ public class GamePanel extends JPanel implements ActionListener {
             checkCollisions();
         }
         repaint();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        new GameFrame();
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
     public class MyKeyAdapter extends KeyAdapter {
@@ -200,5 +235,8 @@ public class GamePanel extends JPanel implements ActionListener {
                     break;
             }
         }
+    }
+    public boolean getRunning(){
+        return running;
     }
 }

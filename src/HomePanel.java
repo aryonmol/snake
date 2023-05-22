@@ -8,6 +8,8 @@ import static javafx.application.Platform.exit;
 
 public class HomePanel extends JPanel implements MouseListener{
     protected JButton play = new JButton("PLAY");
+
+    boolean mousePressed = false;
     //JButton music
     HomePanel() {
         this.setPreferredSize(new Dimension(0,250));
@@ -44,5 +46,8 @@ public class HomePanel extends JPanel implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+    public boolean getMousePressed(){
+        return mousePressed;
     }
 }

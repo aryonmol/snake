@@ -1,5 +1,9 @@
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 public class GameFrame extends JFrame{
+
     GameFrame() {
         this.add(new GamePanel());
         this.setTitle("Snake");
@@ -8,5 +12,6 @@ public class GameFrame extends JFrame{
         this.pack(); //adds jframe components to game frame
         this.setVisible(true);
         this.setLocationRelativeTo(null); //puts the window in the middle of the screen
+
     }
 }
